@@ -25,7 +25,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/userchoice", method = RequestMethod.GET)
+	@RequestMapping(value = "/userchoice", method = RequestMethod.POST)
 	public String userChoice(Model model, HttpServletRequest request) {
 		
 		return "userchoice";
@@ -34,8 +34,11 @@ public class HomeController {
 	@RequestMapping(value = "/match", method = RequestMethod.POST)
 	public String match(Model model, HttpServletRequest request) {
 		
-		StringBuffer humanRPS = null;
-		humanRPS.append(request.getParameter("humanPlayer"));
+		
+		String str1 = request.getParameter("humanPlayer");
+		StringBuffer humanRPS = new StringBuffer();
+		humanRPS.append(str1);
+		
 		
 		Human human = new Human();
 		

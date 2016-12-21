@@ -4,11 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Match Results</title>
+<title>Login</title>
 </head>
 <body>
+<h1>Login</h1>
 <p>
-${humanRPS}
+<form name="form1" action="profile" method="post">
+
+<br><br><input type="submit" value="submit">
+</form>
 </p>
 </body>
 </html>

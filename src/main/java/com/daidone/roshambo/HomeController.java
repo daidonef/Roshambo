@@ -25,6 +25,18 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(Model model, HttpServletRequest request) {
+		
+		return "login";
+	}
+	
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
+	public String profile(Model model, HttpServletRequest request) {
+		
+		return "profile";
+	}
+	
 	@RequestMapping(value = "/userchoice", method = RequestMethod.POST)
 	public String userChoice(Model model, HttpServletRequest request) {
 		
@@ -39,9 +51,7 @@ public class HomeController {
 		StringBuffer humanRPS = new StringBuffer();
 		humanRPS.append(str1);
 		
-		
 		Human human = new Human();
-		
 		human.generateRoshambo(humanRPS);
 		
 		Roshambo hRPS = human.getRoshambo();

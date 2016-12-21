@@ -9,7 +9,7 @@
 	Hello world!  
 </h1>
 <p>
-<form name="form1" action="/resources/userchoice" method="post">
+<form name="form1" action="login" method="post">
 
 <br><br><input type="submit" value="submit">
 </form>

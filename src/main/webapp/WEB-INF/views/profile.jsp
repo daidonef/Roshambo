@@ -4,11 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Match Results</title>
+<title>Profile</title>
 </head>
 <body>
 <p>
-${humanRPS}
+<form name="player" action="userchoice" method="post">
+
+<br>Rock Player<input type="radio" name="opponent" value="RockPlayer">
+<br>Random Player<input type="radio" name="opponent" value="RandomPlayer">
+
+<br><br><input type="submit" value="submit">
+</form>
 </p>
 </body>
 </html>

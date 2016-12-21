@@ -10,6 +10,7 @@
 <p>
 ${humanRPS}
 <br>${opponentRPS}
+<br>${outcome}
 </p>
 </body>
 </html>

@@ -46,8 +46,7 @@ public class HomeController {
 		String opponent = request.getParameter("opponent");
 		if (opponent.equals("rockPlayer")) {
 			
-			StringBuffer rockRPS = new StringBuffer();
-			rockRPS.append("Rock");
+			StringBuffer rockRPS = new StringBuffer("Rock");
 			
 			Rock rock = new Rock();
 			rock.generateRoshambo(rockRPS);
@@ -68,8 +67,7 @@ public class HomeController {
 		HttpSession session = request.getSession(true);
 		
 		String humanPlayer = request.getParameter("humanPlayer");
-		StringBuffer humanRPS = new StringBuffer();
-		humanRPS.append(humanPlayer);
+		StringBuffer humanRPS = new StringBuffer(humanPlayer);
 		
 		Human human = new Human();
 		human.generateRoshambo(humanRPS);
@@ -77,8 +75,11 @@ public class HomeController {
 		Roshambo hRPS = human.getRoshambo();
 		Roshambo oRPS = (Roshambo) session.getAttribute("opponentChoice");
 		
+		StringBuffer outcome = new StringBuffer(GameMatch.gameOutcome(hRPS, oRPS));
+		
 		model.addAttribute("humanRPS", hRPS);
 		model.addAttribute("opponentRPS", oRPS);
+		model.addAttribute("outcome", outcome);
 		
 		return "match";
 	}

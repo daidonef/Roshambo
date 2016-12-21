@@ -10,8 +10,8 @@
 <p>
 <form name="player" action="userchoice" method="post">
 
-<br>Rock Player<input type="radio" name="opponent" value="RockPlayer">
-<br>Random Player<input type="radio" name="opponent" value="RandomPlayer">
+<br>Rock Player<input type="radio" name="opponent" value="rockPlayer">
+<br>Random Player<input type="radio" name="opponent" value="randomPlayer">
 
 <br><br><input type="submit" value="submit">
 </form>

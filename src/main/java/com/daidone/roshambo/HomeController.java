@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,23 +41,44 @@ public class HomeController {
 	@RequestMapping(value = "/userchoice", method = RequestMethod.POST)
 	public String userChoice(Model model, HttpServletRequest request) {
 		
+		HttpSession session = request.getSession(true);
+		
+		String opponent = request.getParameter("opponent");
+		if (opponent.equals("rockPlayer")) {
+			
+			StringBuffer rockRPS = new StringBuffer();
+			rockRPS.append("Rock");
+			
+			Rock rock = new Rock();
+			rock.generateRoshambo(rockRPS);
+			Roshambo rRPS = rock.getRoshambo();
+			
+			session.setAttribute("opponentChoice", rRPS);
+			
+		} else {
+			
+		}
+		
 		return "userchoice";
 	}
 	
 	@RequestMapping(value = "/match", method = RequestMethod.POST)
 	public String match(Model model, HttpServletRequest request) {
 		
+		HttpSession session = request.getSession(true);
 		
-		String str1 = request.getParameter("humanPlayer");
+		String humanPlayer = request.getParameter("humanPlayer");
 		StringBuffer humanRPS = new StringBuffer();
-		humanRPS.append(str1);
+		humanRPS.append(humanPlayer);
 		
 		Human human = new Human();
 		human.generateRoshambo(humanRPS);
 		
 		Roshambo hRPS = human.getRoshambo();
+		Roshambo oRPS = (Roshambo) session.getAttribute("opponentChoice");
 		
 		model.addAttribute("humanRPS", hRPS);
+		model.addAttribute("opponentRPS", oRPS);
 		
 		return "match";
 	}

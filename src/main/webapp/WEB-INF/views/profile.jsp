@@ -13,7 +13,7 @@
 <br>Rock Player<input type="radio" name="opponent" value="rockPlayer">
 <br>Random Player<input type="radio" name="opponent" value="randomPlayer">
 
-<br><br><input type="submit" value="submit">
+<br><br><input type="submit" value="Play">
 </form>
 </p>
 </body>

@@ -11,7 +11,7 @@
 <p>
 <form name="form1" action="profile" method="post">
 
-<br><br><input type="submit" value="submit">
+<br><br><input type="submit" value="Login">
 </form>
 </p>
 </body>

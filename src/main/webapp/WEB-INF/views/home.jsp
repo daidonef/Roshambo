@@ -9,9 +9,9 @@
 	Hello world!  
 </h1>
 <p>
-<form name="form1" action="login" method="post">
+<form name="login" action="login" method="post">
 
-<br><br><input type="submit" value="submit">
+<br><br><input type="submit" value="Login">
 </form>
 </p>
 </body>

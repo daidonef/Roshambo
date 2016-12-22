@@ -8,9 +8,16 @@
 </head>
 <body>
 <p>
-${humanRPS}
-<br>${opponentRPS}
-<br>${outcome}
+Your Choice: ${humanRPS}
+<br>Opponent's Choice: ${opponentRPS}
+<br>Outcome: ${outcome}
 </p>
+<p>
+<form name="playAgain" action="profile" method="post">
+
+<br><br><input type="submit" value="Play Another Opponent">
+</form>
+</p>
+
 </body>
 </html>

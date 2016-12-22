@@ -56,6 +56,14 @@ public class HomeController {
 			
 		} else {
 			
+			StringBuffer randomRPS = new StringBuffer("");
+			
+			RandomPlayer randomPlayer = new RandomPlayer();
+			randomPlayer.generateRoshambo(randomRPS);
+			Roshambo rRPS = randomPlayer.getRoshambo();
+			
+			session.setAttribute("opponentChoice", rRPS);
+			
 		}
 		
 		return "userchoice";

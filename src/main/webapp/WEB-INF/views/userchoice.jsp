@@ -14,7 +14,7 @@
 <br>Paper<input type="radio" name="humanPlayer" value="Paper">
 <br>Scissors<input type="radio" name="humanPlayer" value="Scissors">
 
-<br><br><input type="submit" value="submit">
+<br><br><input type="submit" value="Your Choice">
 </form>
 </p>
 </body>

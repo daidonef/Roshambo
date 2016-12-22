@@ -8,6 +8,9 @@
 </head>
 <body>
 <p>
+Hello ${fullName}
+</p>
+<p>
 <form name="player" action="userchoice" method="post">
 
 <br>Rock Player<input type="radio" name="opponent" value="rockPlayer">

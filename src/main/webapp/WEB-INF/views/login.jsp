@@ -11,6 +11,9 @@
 <p>
 <form name="form1" action="profile" method="post">
 
+<br>First Name: <input type="text" name="firstName">
+<br>Last Name: <input type="text" name="lastName">
+
 <br><br><input type="submit" value="Login">
 </form>
 </p>

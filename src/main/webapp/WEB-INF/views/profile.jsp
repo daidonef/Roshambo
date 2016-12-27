@@ -11,9 +11,11 @@
 Hello ${fullName}
 </p>
 <p>
+
+<br>Play against a Computer Player:
 <form name="player" action="userchoice" method="post">
 
-<br>Rock Player<input type="radio" name="opponent" value="rockPlayer">
+Rock Player<input type="radio" name="opponent" value="rockPlayer">
 <br>Random Player<input type="radio" name="opponent" value="randomPlayer">
 
 <br><br><input type="submit" value="Play">

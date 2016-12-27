@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	Home Page!  
 </h1>
 <p>
 <form name="login" action="login" method="post">

@@ -55,6 +55,10 @@ public class HomeController {
 	public String userChoice(Model model, HttpServletRequest request) {
 
 		HttpSession session = request.getSession(true);
+		
+		if (session.getAttribute("fullName") == null) {
+			return "login";
+		}
 
 		String opponent = request.getParameter("opponent");
 		if (opponent.equals("rockPlayer")) {
@@ -86,6 +90,14 @@ public class HomeController {
 	public String match(Model model, HttpServletRequest request) {
 
 		HttpSession session = request.getSession(true);
+		
+		if (session.getAttribute("fullName") == null) {
+			return "login";
+		}
+		
+		if (session.getAttribute("opponentChoice") == null) {
+			return "profile";
+		}
 
 		String humanPlayer = request.getParameter("humanPlayer");
 		StringBuffer humanRPS = new StringBuffer(humanPlayer);

@@ -9,7 +9,7 @@
 <body>
 <h1>Login</h1>
 <p>
-<form name="form1" action="profile" method="post">
+<form name="login" onsubmit="return validation()" action="profile" method="post">
 
 <br>First Name: <input type="text" name="firstName">
 <br>Last Name: <input type="text" name="lastName">
@@ -17,5 +17,36 @@
 <br><br><input type="submit" value="Login">
 </form>
 </p>
+
+<script>
+function validation() {
+	var firstName = document.forms["login"]["firstName"].value;
+	var lastName = document.forms["login"]["lastName"].value;
+	
+	var letters = /^[A-Za-z\s]+$/;
+	
+	if (firstName.length < 2) {
+		alert("First name is too short!");
+		return false;
+	}
+	
+	if (letters.test(firstName) == false) {
+		alert("First name can only have letters!");
+		return false;
+	}
+	
+	if (lastName.length < 2) {
+		alert("Last name is too short!");
+		return false;
+	}
+	
+	if (letters.test(lastName) == false) {
+		alert("Last name can only have letters!");
+		return false;
+	}
+}
+
+</script>
+
 </body>
 </html>

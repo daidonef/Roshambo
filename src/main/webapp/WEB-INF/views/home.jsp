@@ -11,7 +11,13 @@
 <p>
 <form name="login" action="login" method="post">
 
-<br><br><input type="submit" value="Login">
+<input type="submit" value="Login">
+</form>
+</p>
+<p>
+<form name="createAccount" action="createaccount" method="post">
+
+<input type="submit" value="Create Account">
 </form>
 </p>
 </body>

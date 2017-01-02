@@ -38,10 +38,32 @@ public class HomeController {
 		HttpSession session = request.getSession(true);
 
 		if (session.getAttribute("fullName") == null) {
-
-			StringBuffer firstName = new StringBuffer(request.getParameter("firstName"));
-			StringBuffer lastName = new StringBuffer(request.getParameter("lastName"));
-			StringBuffer fullName = new StringBuffer(firstName + " " + lastName);
+			
+			Account account = new Account();
+			StringBuffer fullName = new StringBuffer();
+			
+			if (request.getParameter("firstName") == null) {
+				
+				StringBuffer userName = new StringBuffer(request.getParameter("userName"));
+				StringBuffer password = new StringBuffer(request.getParameter("password"));
+				
+				//Getting the account from the database is not working, need to figure it out.
+				String query = "FROM account WHERE (username = '" + userName + "') and (password "
+						+ "= '" + password + "')";
+				account = DAOAccount.getAccount(query).get(0);
+				fullName.append(account.getFirstName() + " " + account.getLastName());
+				
+			} else {
+				
+				StringBuffer firstName = new StringBuffer(request.getParameter("firstName"));
+				StringBuffer lastName = new StringBuffer(request.getParameter("lastName"));
+				fullName.append(firstName + " " + lastName);
+				
+				account = account.createAccount(request.getParameter("userName"), firstName.toString(), 
+						lastName.toString(), request.getParameter("password"));
+				DAOAccount.addAccount(account);
+				
+			}
 
 			session.setAttribute("fullName", fullName);
 			
@@ -100,8 +122,7 @@ public class HomeController {
 			return "profile";
 		}
 
-		String humanPlayer = request.getParameter("humanPlayer");
-		StringBuffer humanRPS = new StringBuffer(humanPlayer);
+		StringBuffer humanRPS = new StringBuffer(request.getParameter("humanPlayer"));
 
 		Human human = new Human();
 		human.generateRoshambo(humanRPS);

@@ -36,5 +36,16 @@ public class DAOAccount {
 		hibernateSession.close();
 		return i;
 	}
+	
+	public static List<Account> getAccount(String query) { 
+		if (factory == null)
+			setupFactory();
+		Session hibernateSession = factory.openSession();
+		hibernateSession.getTransaction().begin();
+		List<Account> accounts = hibernateSession.createQuery(query).list();
+		hibernateSession.getTransaction().commit();
+		hibernateSession.close();
+		return accounts;
+	}
 
 }

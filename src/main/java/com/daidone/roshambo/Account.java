@@ -6,6 +6,7 @@ public class Account {
 	private String userName;
 	private String firstName;
 	private String lastName;
+	private String password;
 	
 	public Account() {
 		
@@ -26,6 +27,10 @@ public class Account {
 	public String getLastName() {
 		return lastName;
 	}
+	
+	public String getPassword() {
+		return password;
+	}
 
 	public void setID(int iD) {
 		ID = iD;
@@ -41,6 +46,23 @@ public class Account {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public Account createAccount(String un, String fn, String ln, String p) {
+		
+		Account account = new Account();
+		
+		account.setUserName(un);
+		account.setFirstName(fn);
+		account.setLastName(ln);
+		account.setPassword(p);
+		
+		return account;
+		
 	}
 
 }

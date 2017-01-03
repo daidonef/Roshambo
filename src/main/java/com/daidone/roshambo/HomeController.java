@@ -1,5 +1,8 @@
 package com.daidone.roshambo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -47,10 +50,12 @@ public class HomeController {
 				StringBuffer userName = new StringBuffer(request.getParameter("userName"));
 				StringBuffer password = new StringBuffer(request.getParameter("password"));
 				
-				//Getting the account from the database is not working, need to figure it out.
-				String query = "FROM account WHERE (username = '" + userName + "') and (password "
-						+ "= '" + password + "')";
-				account = DAOAccount.getAccount(query).get(0);
+				//Getting the account from the database.
+				String query = "FROM Account WHERE (username = '" + userName + "') and (password "
+						+ "= '" + password + "') ";
+				List<Account> accounts = new ArrayList<Account>();
+				accounts = DAOAccount.getAccount(query);
+				account = accounts.get(0);
 				fullName.append(account.getFirstName() + " " + account.getLastName());
 				
 			} else {
@@ -59,6 +64,7 @@ public class HomeController {
 				StringBuffer lastName = new StringBuffer(request.getParameter("lastName"));
 				fullName.append(firstName + " " + lastName);
 				
+				//Adding the account to the Database.
 				account = account.createAccount(request.getParameter("userName"), firstName.toString(), 
 						lastName.toString(), request.getParameter("password"));
 				DAOAccount.addAccount(account);

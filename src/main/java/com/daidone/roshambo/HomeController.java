@@ -25,12 +25,18 @@ public class HomeController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession(true);
+		session.invalidate();
 
 		return "login";
 	}
 	
 	@RequestMapping(value = "/createaccount", method = RequestMethod.POST)
 	public String signIn(Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession(true);
+		session.invalidate();
 
 		return "createaccount";
 	}
@@ -40,7 +46,7 @@ public class HomeController {
 
 		HttpSession session = request.getSession(true);
 
-		if (session.getAttribute("fullName") == null) {
+		if (session.getAttribute("account") == null) {
 			
 			Account account = new Account();
 			StringBuffer fullName = new StringBuffer();
@@ -71,6 +77,7 @@ public class HomeController {
 				
 			}
 
+			session.setAttribute("account", account);
 			session.setAttribute("fullName", fullName);
 			
 		}
@@ -85,7 +92,7 @@ public class HomeController {
 
 		HttpSession session = request.getSession(true);
 		
-		if (session.getAttribute("fullName") == null) {
+		if (session.getAttribute("account") == null) {
 			return "login";
 		}
 
@@ -120,7 +127,7 @@ public class HomeController {
 
 		HttpSession session = request.getSession(true);
 		
-		if (session.getAttribute("fullName") == null) {
+		if (session.getAttribute("account") == null) {
 			return "login";
 		}
 		

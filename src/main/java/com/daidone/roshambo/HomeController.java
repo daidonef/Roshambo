@@ -50,10 +50,10 @@ public class HomeController {
 			
 			Account account = new Account();
 			StringBuffer fullName = new StringBuffer();
+			StringBuffer userName = new StringBuffer(request.getParameter("userName"));
 			
 			if (request.getParameter("firstName") == null) {
 				
-				StringBuffer userName = new StringBuffer(request.getParameter("userName"));
 				StringBuffer password = new StringBuffer(request.getParameter("password"));
 				
 				//Getting the account from the database.
@@ -61,6 +61,11 @@ public class HomeController {
 						+ "= '" + password + "') ";
 				List<Account> accounts = new ArrayList<Account>();
 				accounts = DAOAccount.getAccount(query);
+				
+				if (accounts.size() == 0) {
+					return "home";
+				}
+				
 				account = accounts.get(0);
 				fullName.append(account.getFirstName() + " " + account.getLastName());
 				
@@ -69,6 +74,15 @@ public class HomeController {
 				StringBuffer firstName = new StringBuffer(request.getParameter("firstName"));
 				StringBuffer lastName = new StringBuffer(request.getParameter("lastName"));
 				fullName.append(firstName + " " + lastName);
+				
+				//used to see if username is already in the database.
+				String query = "FROM Account WHERE (username = '" + userName + "')";
+				List<Account> accounts = new ArrayList<Account>();
+				accounts = DAOAccount.getAccount(query);
+				
+				if (accounts.size() == 1) {
+					return "home";
+				}
 				
 				//Adding the account to the Database.
 				account = account.createAccount(request.getParameter("userName"), firstName.toString(), 

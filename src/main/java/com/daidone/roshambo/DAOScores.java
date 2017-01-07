@@ -36,5 +36,26 @@ public class DAOScores {
 		hibernateSession.close();
 		return i;
 	}
+	
+	public static List<Scores> getScores(String query) { 
+		if (factory == null)
+			setupFactory();
+		Session hibernateSession = factory.openSession();
+		hibernateSession.getTransaction().begin();
+		List<Scores> scores = hibernateSession.createQuery(query).list();
+		hibernateSession.getTransaction().commit();
+		hibernateSession.close();
+		return scores;
+	}
+	
+	public static void updateScores(Scores s) {
+		if (factory == null)
+			setupFactory();	
+		Session hibernateSession = factory.openSession();
+		hibernateSession.getTransaction().begin();
+		hibernateSession.merge(s); 
+		hibernateSession.getTransaction().commit();
+		hibernateSession.close();
+	}
 
 }

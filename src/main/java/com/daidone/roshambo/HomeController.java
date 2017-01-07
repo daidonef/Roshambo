@@ -49,10 +49,11 @@ public class HomeController {
 		if (session.getAttribute("account") == null) {
 			
 			Account account = new Account();
+			Scores scores = new Scores();
 			StringBuffer fullName = new StringBuffer();
 			StringBuffer userName = new StringBuffer(request.getParameter("userName"));
 			
-			if (request.getParameter("firstName") == null) {
+			if (request.getParameter("firstName") == null) { //From login page
 				
 				StringBuffer password = new StringBuffer(request.getParameter("password"));
 				
@@ -63,13 +64,13 @@ public class HomeController {
 				accounts = DAOAccount.getAccount(query);
 				
 				if (accounts.size() == 0) {
-					return "home";
+					return "login";
 				}
 				
 				account = accounts.get(0);
 				fullName.append(account.getFirstName() + " " + account.getLastName());
 				
-			} else {
+			} else { //From createaccount page
 				
 				StringBuffer firstName = new StringBuffer(request.getParameter("firstName"));
 				StringBuffer lastName = new StringBuffer(request.getParameter("lastName"));
@@ -81,13 +82,18 @@ public class HomeController {
 				accounts = DAOAccount.getAccount(query);
 				
 				if (accounts.size() == 1) {
-					return "home";
+					return "createaccount";
 				}
 				
 				//Adding the account to the Database.
 				account = account.createAccount(request.getParameter("userName"), firstName.toString(), 
 						lastName.toString(), request.getParameter("password"));
 				DAOAccount.addAccount(account);
+				
+				//get account just created in order to get the ID
+				query = "FROM Account WHERE (username = '" + request.getParameter("userName") + "')";
+				accounts = new ArrayList<Account>();
+				account = DAOAccount.getAccount(query).get(0);
 				
 			}
 
@@ -111,6 +117,12 @@ public class HomeController {
 		}
 
 		String opponent = request.getParameter("opponent");
+		
+		if (opponent == null) {
+			return "profile";
+		}
+		
+		session.setAttribute("opponent", opponent);
 		if (opponent.equals("rockPlayer")) {
 
 			StringBuffer rockRPS = new StringBuffer("Rock");
@@ -158,7 +170,32 @@ public class HomeController {
 		Roshambo oRPS = (Roshambo) session.getAttribute("opponentChoice");
 
 		StringBuffer outcome = new StringBuffer(GameMatch.gameOutcome(hRPS, oRPS));
-
+		
+		Account account = (Account) session.getAttribute("account");
+		int accountID = account.getID();
+		String opponent = (String) session.getAttribute("opponent");
+		
+		String query = "FROM Scores Where (accountid = '" + accountID + "') and ("
+				+ "opponent = '" + opponent + "')";
+		List<Scores> scores = DAOScores.getScores(query);
+		
+		if (scores.size() == 0) { //If accountID and opponent is not in database
+			
+			Scores newScores = new Scores();
+			
+			newScores.setAccountID(account.getID());
+			newScores.setOpponent(opponent);
+			newScores = Scores.newWinLoseTie(newScores, outcome);
+			DAOScores.addScores(newScores);
+			
+		} else { //If it already is in database
+			
+			Scores score = scores.get(0);
+			score = Scores.addingWinLoseTie(score, outcome);
+			DAOScores.updateScores(score);
+			
+		}
+		
 		model.addAttribute("humanRPS", hRPS);
 		model.addAttribute("opponentRPS", oRPS);
 		model.addAttribute("outcome", outcome);

@@ -60,5 +60,37 @@ public class Scores {
 	public void setTies(int ties) {
 		this.ties = ties;
 	}
+	
+	public static Scores addingWinLoseTie (Scores scores, StringBuffer outcome) {
+		
+		String str1 = outcome.toString();
+		
+		if (str1 == "Win") {
+			scores.setWins(scores.getWins() + 1);
+		} else if (str1 == "Lose") {
+			scores.setLoses(scores.getLoses() + 1);
+		} else {
+			scores.setTies(scores.getTies() + 1);
+		}
+		
+		return scores;
+		
+	}
+	
+	public static Scores newWinLoseTie (Scores scores, StringBuffer outcome) {
+		
+		String str1 = outcome.toString();
+		
+		if (str1 == "Win") {
+			scores.setWins(1);
+		} else if (str1 == "Lose") {
+			scores.setLoses(1);
+		} else {
+			scores.setTies(1);
+		}
+		
+		return scores;
+		
+	}
 
 }

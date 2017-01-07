@@ -65,9 +65,9 @@ public class Scores {
 		
 		String str1 = outcome.toString();
 		
-		if (str1 == "Win") {
+		if (str1.equals("Win")) {
 			scores.setWins(scores.getWins() + 1);
-		} else if (str1 == "Lose") {
+		} else if (str1.equals("Lose")) {
 			scores.setLoses(scores.getLoses() + 1);
 		} else {
 			scores.setTies(scores.getTies() + 1);
@@ -81,9 +81,9 @@ public class Scores {
 		
 		String str1 = outcome.toString();
 		
-		if (str1 == "Win") {
+		if (str1.equals("Win")) {
 			scores.setWins(1);
-		} else if (str1 == "Lose") {
+		} else if (str1.equals("Lose")) {
 			scores.setLoses(1);
 		} else {
 			scores.setTies(1);

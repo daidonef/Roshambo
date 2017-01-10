@@ -45,11 +45,10 @@ public class HomeController {
 	public String profile(Model model, HttpServletRequest request) {
 
 		HttpSession session = request.getSession(true);
+		Account account = new Account();
 
 		if (session.getAttribute("account") == null) {
 			
-			Account account = new Account();
-			Scores scores = new Scores();
 			StringBuffer fullName = new StringBuffer();
 			StringBuffer userName = new StringBuffer(request.getParameter("userName"));
 			
@@ -100,6 +99,14 @@ public class HomeController {
 			session.setAttribute("account", account);
 			session.setAttribute("fullName", fullName);
 			
+		} else {
+			account = (Account) session.getAttribute("account");
+		}
+		
+		List<Scores> scores = DAOScores.getScores(Query.gettingScoresAccID(account.getID()));
+		
+		if (scores != null) {
+			model.addAttribute("scores", scores);
 		}
 		
 		model.addAttribute("fullName", session.getAttribute("fullName"));

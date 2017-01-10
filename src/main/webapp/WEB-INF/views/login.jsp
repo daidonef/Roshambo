@@ -9,6 +9,7 @@
 <body>
 <h1>Login</h1>
 <p>
+${wrongLogin }
 <form name="login" onsubmit="return validation()" action="profile" method="post">
 
 <br>Username: <input type="text" name="userName">

@@ -61,6 +61,8 @@ public class HomeController {
 				accounts = DAOAccount.getAccount(Query.gettingAccountUNaP(userName, password));
 				
 				if (accounts.size() == 0) {
+					model.addAttribute("wrongLogin", "Username or password is wrong.<br>"
+							+ "Please try again.");
 					return "login";
 				}
 				
@@ -78,6 +80,8 @@ public class HomeController {
 				accounts = DAOAccount.getAccount(Query.gettingAccountUN(userName));
 				
 				if (accounts.size() == 1) {
+					model.addAttribute("accountExist", "Username is already created.<br>"
+							+ "Please choose another username.");
 					return "createaccount";
 				}
 				
@@ -118,10 +122,13 @@ public class HomeController {
 		if (session.getAttribute("account") == null) {
 			return "login";
 		}
-
-		String opponent = request.getParameter("opponent");
 		
-		if (opponent == null) {
+		String opponent;
+		if (request.getParameter("opponent") != null) { //For new opponent
+			opponent = request.getParameter("opponent");
+		} else if (session.getAttribute("opponent") != null) { //For last opponent chosen
+			opponent = (String) session.getAttribute("opponent");
+		} else { //For no opponent chosen
 			return "profile";
 		}
 		
@@ -165,7 +172,6 @@ public class HomeController {
 		}
 
 		StringBuffer humanRPS = new StringBuffer(request.getParameter("humanPlayer"));
-
 		Human human = new Human();
 		human.generateRoshambo(humanRPS);
 

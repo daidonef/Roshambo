@@ -13,9 +13,13 @@ Your Choice: ${humanRPS}
 <br>Outcome: ${outcome}
 </p>
 <p>
-<form name="playAgain" action="profile" method="post">
+<form name="playAnotherOpp" action="profile" method="post">
 
-<br><br><input type="submit" value="Play Another Opponent">
+<br><input type="submit" value="Play Another Opponent">
+</form>
+<form name="playAgain" action="userchoice" method="post">
+
+<br><input type="submit" value="Play Again">
 </form>
 </p>
 

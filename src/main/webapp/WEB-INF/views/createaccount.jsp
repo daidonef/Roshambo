@@ -7,7 +7,9 @@
 <title>Sign In</title>
 </head>
 <body>
+<h1>Create Account</h1>
 <p>
+${accountExist }
 <form name="createAccount" onsubmit="return validation()" action="profile" method="post">
 
 <br>Username: <input type="text" name="userName">

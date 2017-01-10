@@ -57,10 +57,8 @@ public class HomeController {
 				StringBuffer password = new StringBuffer(request.getParameter("password"));
 				
 				//Getting the account from the database.
-				String query = "FROM Account WHERE (username = '" + userName + "') and (password "
-						+ "= '" + password + "') ";
 				List<Account> accounts = new ArrayList<Account>();
-				accounts = DAOAccount.getAccount(query);
+				accounts = DAOAccount.getAccount(Query.gettingAccountUNaP(userName, password));
 				
 				if (accounts.size() == 0) {
 					return "login";
@@ -76,9 +74,8 @@ public class HomeController {
 				fullName.append(firstName + " " + lastName);
 				
 				//used to see if username is already in the database.
-				String query = "FROM Account WHERE (username = '" + userName + "')";
 				List<Account> accounts = new ArrayList<Account>();
-				accounts = DAOAccount.getAccount(query);
+				accounts = DAOAccount.getAccount(Query.gettingAccountUN(userName));
 				
 				if (accounts.size() == 1) {
 					return "createaccount";
@@ -90,16 +87,15 @@ public class HomeController {
 				DAOAccount.addAccount(account);
 				
 				//get account just created in order to get the ID
-				query = "FROM Account WHERE (username = '" + request.getParameter("userName") + "')";
 				accounts = new ArrayList<Account>();
-				account = DAOAccount.getAccount(query).get(0);
+				account = DAOAccount.getAccount(Query.gettingAccountUN(userName)).get(0);
 				
 			}
 
 			session.setAttribute("account", account);
 			session.setAttribute("fullName", fullName);
 			
-		} else {
+		} else { //When user goes back to profile it will now show scores
 			account = (Account) session.getAttribute("account");
 		}
 		
@@ -179,12 +175,10 @@ public class HomeController {
 		StringBuffer outcome = new StringBuffer(GameMatch.gameOutcome(hRPS, oRPS));
 		
 		Account account = (Account) session.getAttribute("account");
-		int accountID = account.getID();
 		String opponent = (String) session.getAttribute("opponent");
 		
-		String query = "FROM Scores Where (accountid = '" + accountID + "') and ("
-				+ "opponent = '" + opponent + "')";
-		List<Scores> scores = DAOScores.getScores(query);
+		List<Scores> scores = DAOScores.getScores(Query.gettingScoresAccIDOpp
+				(account.getID(), opponent));
 		
 		if (scores.size() == 0) { //If accountID and opponent is not in database
 			

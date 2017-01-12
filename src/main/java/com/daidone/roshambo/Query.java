@@ -23,5 +23,16 @@ public class Query {
 		String query = "FROM Account WHERE (username = '" + un + "')";
 		return query;
 	}
+	
+	public static String gettingAccountID (int id) {
+		String query = "FROM Account Where (id = " + id + ")";
+		return query;
+	}
+	
+	public static String searchName (StringBuffer n) {
+		//Need to put in SQL command for searching database
+		String query = "FROM Account WHERE (firstname ";
+		return query;
+	}
 
 }

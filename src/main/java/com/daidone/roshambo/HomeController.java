@@ -25,16 +25,16 @@ public class HomeController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, HttpServletRequest request) {
-		
+
 		HttpSession session = request.getSession(true);
 		session.invalidate();
 
 		return "login";
 	}
-	
+
 	@RequestMapping(value = "/createaccount", method = RequestMethod.POST)
 	public String signIn(Model model, HttpServletRequest request) {
-		
+
 		HttpSession session = request.getSession(true);
 		session.invalidate();
 
@@ -46,70 +46,94 @@ public class HomeController {
 
 		HttpSession session = request.getSession(true);
 		Account account = new Account();
+		StringBuffer fullName = new StringBuffer();
 
 		if (session.getAttribute("account") == null) {
-			
-			StringBuffer fullName = new StringBuffer();
+
 			StringBuffer userName = new StringBuffer(request.getParameter("userName"));
-			
-			if (request.getParameter("firstName") == null) { //From login page
-				
+
+			if (request.getParameter("firstName") == null) { // From login page
+
 				StringBuffer password = new StringBuffer(request.getParameter("password"));
-				
-				//Getting the account from the database.
+
+				// Getting the account from the database.
 				List<Account> accounts = new ArrayList<Account>();
 				accounts = DAOAccount.getAccount(Query.gettingAccountUNaP(userName, password));
-				
+
 				if (accounts.size() == 0) {
 					model.addAttribute("wrongLogin", "Username or password is wrong.<br>"
 							+ "Please try again.");
 					return "login";
 				}
-				
+
 				account = accounts.get(0);
 				fullName.append(account.getFirstName() + " " + account.getLastName());
-				
-			} else { //From createaccount page
-				
+
+			} else { // From createaccount page
+
 				StringBuffer firstName = new StringBuffer(request.getParameter("firstName"));
 				StringBuffer lastName = new StringBuffer(request.getParameter("lastName"));
 				fullName.append(firstName + " " + lastName);
-				
-				//used to see if username is already in the database.
+
+				// used to see if username is already in the database.
 				List<Account> accounts = new ArrayList<Account>();
 				accounts = DAOAccount.getAccount(Query.gettingAccountUN(userName));
-				
+
 				if (accounts.size() == 1) {
 					model.addAttribute("accountExist", "Username is already created.<br>"
 							+ "Please choose another username.");
 					return "createaccount";
 				}
-				
-				//Adding the account to the Database.
-				account = account.createAccount(request.getParameter("userName"), firstName.toString(), 
+
+				// Adding the account to the Database.
+				account = account.createAccount(request.getParameter("userName"), firstName.toString(),
 						lastName.toString(), request.getParameter("password"));
 				DAOAccount.addAccount(account);
-				
-				//get account just created in order to get the ID
+
+				// get account just created in order to get the ID
 				accounts = new ArrayList<Account>();
 				account = DAOAccount.getAccount(Query.gettingAccountUN(userName)).get(0);
-				
+
 			}
 
 			session.setAttribute("account", account);
 			session.setAttribute("fullName", fullName);
-			
-		} else { //When user goes back to profile it will now show scores
+
+		} else { // When user goes back to profile it will now show scores
 			account = (Account) session.getAttribute("account");
 		}
 		
+		//Listing the scores of the current user
 		List<Scores> scores = DAOScores.getScores(Query.gettingScoresAccID(account.getID()));
-		
 		if (scores != null) {
 			model.addAttribute("scores", scores);
 		}
 		
+		//For updating an Account either by user or owner
+		if (request.getParameter("accountID") != null) {
+			Account updateAccount = DAOAccount.getAccount(Query.gettingAccountID(
+					Integer.parseInt(request.getParameter("accountID")))).get(0);
+			
+			updateAccount.setFirstName((String)request.getParameter("firstName"));
+			updateAccount.setLastName((String)request.getParameter("lastName"));
+			updateAccount.setPassword((String)request.getParameter("password"));
+			
+			DAOAccount.updateAccount(updateAccount);
+			model.addAttribute("updateAccount", "<br>Account has been updated");
+			
+			//For when user updates their own account
+			if (account.getID() == updateAccount.getID()) {
+				session.setAttribute("account", updateAccount);
+				fullName.append(updateAccount.getFirstName() + " " + updateAccount.getLastName());
+				session.setAttribute("fullName", fullName);
+			}
+		}
+
 		model.addAttribute("fullName", session.getAttribute("fullName"));
+
+		if (account.getUserName().equals("Admin")) {
+			model.addAttribute("owner", Owner.formOwnerPage());
+		}
 
 		return "profile";
 	}
@@ -118,20 +142,20 @@ public class HomeController {
 	public String userChoice(Model model, HttpServletRequest request) {
 
 		HttpSession session = request.getSession(true);
-		
+
 		if (session.getAttribute("account") == null) {
 			return "login";
 		}
-		
+
 		String opponent;
-		if (request.getParameter("opponent") != null) { //For new opponent
+		if (request.getParameter("opponent") != null) { // For new opponent
 			opponent = request.getParameter("opponent");
-		} else if (session.getAttribute("opponent") != null) { //For last opponent chosen
+		} else if (session.getAttribute("opponent") != null) { // For last opponent chosen
 			opponent = (String) session.getAttribute("opponent");
-		} else { //For no opponent chosen
+		} else { // For no opponent chosen
 			return "profile";
 		}
-		
+
 		session.setAttribute("opponent", opponent);
 		if (opponent.equals("rockPlayer")) {
 
@@ -162,11 +186,11 @@ public class HomeController {
 	public String match(Model model, HttpServletRequest request) {
 
 		HttpSession session = request.getSession(true);
-		
+
 		if (session.getAttribute("account") == null) {
 			return "login";
 		}
-		
+
 		if (session.getAttribute("opponentChoice") == null) {
 			return "profile";
 		}
@@ -179,35 +203,88 @@ public class HomeController {
 		Roshambo oRPS = (Roshambo) session.getAttribute("opponentChoice");
 
 		StringBuffer outcome = new StringBuffer(GameMatch.gameOutcome(hRPS, oRPS));
-		
+
 		Account account = (Account) session.getAttribute("account");
 		String opponent = (String) session.getAttribute("opponent");
-		
-		List<Scores> scores = DAOScores.getScores(Query.gettingScoresAccIDOpp
-				(account.getID(), opponent));
-		
-		if (scores.size() == 0) { //If accountID and opponent is not in database
-			
+
+		List<Scores> scores = DAOScores.getScores(Query.gettingScoresAccIDOpp(account.getID(), opponent));
+
+		if (scores.size() == 0) { // If accountID and opponent is not in database
+
 			Scores newScores = new Scores();
-			
+
 			newScores.setAccountID(account.getID());
 			newScores.setOpponent(opponent);
 			newScores = Scores.newWinLoseTie(newScores, outcome);
 			DAOScores.addScores(newScores);
-			
-		} else { //If it already is in database
-			
+
+		} else { // If it already is in database
+
 			Scores score = scores.get(0);
 			score = Scores.addingWinLoseTie(score, outcome);
 			DAOScores.updateScores(score);
-			
+
 		}
-		
+
 		model.addAttribute("humanRPS", hRPS);
 		model.addAttribute("opponentRPS", oRPS);
 		model.addAttribute("outcome", outcome);
 
 		return "match";
+	}
+
+	@RequestMapping(value = "/ownerpage", method = RequestMethod.POST)
+	public String ownerPage(Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession(true);
+		Account owner = (Account) session.getAttribute("account");
+
+		if (owner.getUserName().equals("Admin") == false) {
+			return "login";
+		}
+		/* For searching account
+		StringBuffer name = new StringBuffer((String) request.getAttribute("name"));
+		List<Account> accounts = SearchUsers.searchName(name);
+		model.addAttribute("accounts", accounts);
+		*/
+
+		if (request.getParameter("delete") != null) {
+			// Add delete to DAOAccount and DAOScores using value for
+			// request.getParameter("delete")
+			Account account = new Account();
+			model.addAttribute("accountDelete", account.getUserName() + "has been deleted.");
+		}
+
+		return "ownerpage";
+	}
+
+	@RequestMapping(value = "/updateaccount", method = RequestMethod.POST)
+	public String updateAccount(Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession(true);
+
+		if (session.getAttribute("account") == null) {
+			return "login";
+		}
+			
+			// Add update to DAOAccount using value for
+			// request.getParameter("update")
+			Account account = new Account();
+			
+			if (request.getParameter("updateOwner") != null) {
+				int accountID = Integer.parseInt(request.getParameter("updateOwner"));
+				account = DAOAccount.getAccount(Query.gettingAccountID(accountID)).get(0);
+			} else {
+				account = (Account) session.getAttribute("account");
+			}
+			
+			model.addAttribute("accountUpdate", account.getUserName() + "has been updated.");
+			model.addAttribute("accountID", account.getID());
+			model.addAttribute("firstName", account.getFirstName());
+			model.addAttribute("lastName", account.getLastName());
+			model.addAttribute("password", account.getPassword());
+
+		return "updateaccount";
 	}
 
 }

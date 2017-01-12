@@ -47,5 +47,15 @@ public class DAOAccount {
 		hibernateSession.close();
 		return accounts;
 	}
+	
+	public static void updateAccount(Account a) {
+		if (factory == null)
+			setupFactory();	
+		Session hibernateSession = factory.openSession();
+		hibernateSession.getTransaction().begin();
+		hibernateSession.merge(a);
+		hibernateSession.getTransaction().commit();
+		hibernateSession.close();
+	}
 
 }

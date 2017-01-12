@@ -8,9 +8,8 @@
 <title>Profile</title>
 </head>
 <body>
-	<p>Hello ${fullName}</p>
+	<p>Hello ${fullName}${updateAccount}</p>
 	<p>
-
 		<br>Play against a Computer Player:
 	<form name="player" action="userchoice" method="post">
 
@@ -19,15 +18,12 @@
 			value="randomPlayer"> <br> <br> <input
 			type="submit" value="Play">
 	</form>
-	</p>
-
-	<p>
 	<table>
 		<tr>
-		<th>Opponent</th>
-		<th>Wins</th>
-		<th>Loses</th>
-		<th>Ties</th>
+			<th>Opponent</th>
+			<th>Wins</th>
+			<th>Loses</th>
+			<th>Ties</th>
 		</tr>
 		<c:forEach items="${scores }" var="score">
 			<tr>
@@ -39,5 +35,15 @@
 		</c:forEach>
 	</table>
 	</p>
+	<!-- Need to figure out way to update and delete account -->
+	<form name="update" action="updateaccount" method="post">
+		<input type="hidden" name="update" value="updateUser">
+		<input type="submit" value="Update Account">
+	</form>
+	<form name="delete" action="login" method="post">
+		<br><input type="hidden" name="delete" value="delete">
+		<input type="submit" value="Delete Account">
+	</form>
+	<p>${owner}</p>
 </body>
 </html>

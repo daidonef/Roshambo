@@ -57,5 +57,15 @@ public class DAOScores {
 		hibernateSession.getTransaction().commit();
 		hibernateSession.close();
 	}
+	
+	public static void deleteScores(int i) {
+		if (factory == null)
+			setupFactory();	
+		Session hibernateSession = factory.openSession();
+		hibernateSession.getTransaction().begin();
+		hibernateSession.delete(hibernateSession.get(Scores.class, i));
+		hibernateSession.getTransaction().commit();
+		hibernateSession.clear();
+	}
 
 }

@@ -57,5 +57,17 @@ public class DAOAccount {
 		hibernateSession.getTransaction().commit();
 		hibernateSession.close();
 	}
+	
+	public static Account deleteAccount(int i) {
+		if (factory == null)
+			setupFactory();	
+		Session hibernateSession = factory.openSession();
+		hibernateSession.getTransaction().begin();
+		Account account = hibernateSession.get(Account.class, i);
+		hibernateSession.delete(account);
+		hibernateSession.getTransaction().commit();
+		hibernateSession.clear();
+		return account;
+	}
 
 }

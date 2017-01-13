@@ -27,6 +27,23 @@ public class HomeController {
 	public String login(Model model, HttpServletRequest request) {
 
 		HttpSession session = request.getSession(true);
+		
+		if (request.getParameter("delete") != null) {
+			
+			Account account = (Account) session.getAttribute("account");
+			int accountID = account.getID();
+			Account deleteAcc = DAOAccount.deleteAccount(accountID);
+			
+			List<Scores> scores = DAOScores.getScores(Query.gettingScoresAccID(accountID));
+			for (Scores score : scores) {
+				DAOScores.deleteScores(score.getScoresID());
+			}
+			
+			model.addAttribute("deleteAcc", deleteAcc.getUserName() 
+					+ " account has been deleted!");
+			
+		}
+		
 		session.invalidate();
 
 		return "login";

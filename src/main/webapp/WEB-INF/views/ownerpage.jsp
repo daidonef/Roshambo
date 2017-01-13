@@ -30,13 +30,13 @@
 				<td>${account.lastName }</td>
 				<td>${account.password }</td>
 				<td><form name="update" action="updateaccount" method="post">
-						<input type="hidden" name="updateOwner" value="account.ID"> <input
-							type="submit" value="Update Account">
+						<input type="hidden" name="updateOwner" value="account.ID"> 
+						<input type="submit" value="Update Account">
 					</form></td>
 				<td><form name="delete" action="ownerpage" method="post">
 						<br>
-						<input type="hidden" name="delete" value="account.ID"> <input
-							type="submit" value="Delete Account">
+						<input type="hidden" name="delete" value="account.ID"> 
+						<input type="submit" value="Delete Account">
 					</form></td>
 			</tr>
 		</c:forEach>

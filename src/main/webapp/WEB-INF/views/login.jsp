@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Login</h1>
-	<p>${wrongLogin }
+	<p>${wrongLogin }${deleteAcc }
 	<form name="login" onsubmit="return validation()" action="profile"
 		method="post">
 

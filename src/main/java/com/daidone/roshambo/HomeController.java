@@ -260,11 +260,12 @@ public class HomeController {
 			return "login";
 		}
 		
-		/* For searching account
-		StringBuffer name = new StringBuffer((String) request.getAttribute("name"));
-		List<Account> accounts = SearchUsers.searchName(name);
-		model.addAttribute("accounts", accounts);
-		*/
+		//For searching for accounts my either first or last name
+		if (request.getParameter("name") != null) {
+			StringBuffer name = new StringBuffer((String) request.getParameter("name"));
+			List<Account> accounts = DAOAccount.getAccount(Query.searchName(name));
+			model.addAttribute("accounts", accounts);
+		}
 		
 		//For when owner deletes an account.
 		if (request.getParameter("delete") != null) {

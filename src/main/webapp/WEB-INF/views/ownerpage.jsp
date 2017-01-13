@@ -11,7 +11,7 @@
 	<p>
 	<form name="search" action="ownerpage" method="post">
 
-		<br> <input type="text" name="name"> <br> <br>
+		<br> <input type="text" name="name"> <br>
 		<input type="submit" value="Search">
 	</form>
 	</p>

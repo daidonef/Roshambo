@@ -30,8 +30,8 @@ public class Query {
 	}
 	
 	public static String searchName (StringBuffer n) {
-		//Need to put in SQL command for searching database
-		String query = "FROM Account WHERE (firstname ";
+		String query = "FROM Account WHERE (firstname like '%" + n 
+				+ "%') or (lastname like '%" + n + "%')";
 		return query;
 	}
 

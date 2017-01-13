@@ -259,17 +259,22 @@ public class HomeController {
 		if (owner.getUserName().equals("Admin") == false) {
 			return "login";
 		}
+		
 		/* For searching account
 		StringBuffer name = new StringBuffer((String) request.getAttribute("name"));
 		List<Account> accounts = SearchUsers.searchName(name);
 		model.addAttribute("accounts", accounts);
 		*/
-
+		
+		//For when owner deletes an account.
 		if (request.getParameter("delete") != null) {
-			// Add delete to DAOAccount and DAOScores using value for
-			// request.getParameter("delete")
-			Account account = new Account();
-			model.addAttribute("accountDelete", account.getUserName() + "has been deleted.");
+			int accountID = Integer.parseInt(request.getParameter("delete"));
+			Account account = DAOAccount.deleteAccount(accountID);
+			List<Scores> scores = DAOScores.getScores(Query.gettingScoresAccID(accountID));
+			for (Scores score : scores) {
+				DAOScores.deleteScores(score.getScoresID());
+			}
+			model.addAttribute("accountDelete", account.getUserName() + " has been deleted.");
 		}
 
 		return "ownerpage";

@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Sign In</title>
+<link rel="stylesheet" href="resources/stylepage.css">
 </head>
 <body>
 	<h1>Create Account</h1>

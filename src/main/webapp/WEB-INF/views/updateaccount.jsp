@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Update Account</title>
+<link rel="stylesheet" href="resources/stylepage.css">
 </head>
 <body>
 	<h1>Update Account</h1>

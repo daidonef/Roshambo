@@ -1,0 +1,65 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, rgb(112, 250, 46)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, rgb(112, 250, 46)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, rgb(112, 250, 46)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(-200deg, white, rgb(0, 198, 0)); /* Standard syntax (must be last) */
+}
+
+h1 {
+	position: relative;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 64px;
+	font-family: "Arial Black", Gadget, sans-serif
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 24px 24px;
+    margin: 24px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=password], select {
+    width: 100%;
+    padding: 24px 24px;
+    margin: 24px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 24px 24px;
+    margin: 24px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+div {
+	border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 24px;
+    font-size: 32px;
+	font-family: Arial, Helvetica, sans-serif
+}
+
+.submit {
+	font-size: 32px;
+	font-family: Arial, Helvetica, sans-serif
+}

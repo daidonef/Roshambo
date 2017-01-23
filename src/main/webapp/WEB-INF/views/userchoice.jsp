@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>User Choice</title>
+<link rel="stylesheet" href="resources/stylepage.css">
 </head>
 <body>
 	<p>

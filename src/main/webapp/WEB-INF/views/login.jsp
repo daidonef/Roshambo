@@ -5,19 +5,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
+<link rel="stylesheet" href="resources/stylepage.css">
 </head>
 <body>
 	<h1>Login</h1>
-	<p>${wrongLogin }${deleteAcc }
-	<form name="login" onsubmit="return validation()" action="profile"
+	<p>${wrongLogin }${deleteAcc }</p>
+	<div>
+	<form name="login" class="submit" onsubmit="return validation()" action="profile"
 		method="post">
 
 		<br>Username: <input type="text" name="userName"> <br>Password:
 		<input type="password" name="password"> <br>
 		<br>
-		<input type="submit" value="Login">
+		<input type="submit" class="submit" value="Login">
 	</form>
-	</p>
+	</div>
 
 	<script>
 		function validation() {

@@ -147,7 +147,8 @@ public class HomeController {
 		}
 
 		model.addAttribute("fullName", session.getAttribute("fullName"));
-
+		
+		//For the Owner Account only
 		if (account.getUserName().equals("Admin")) {
 			model.addAttribute("owner", Owner.formOwnerPage());
 		}

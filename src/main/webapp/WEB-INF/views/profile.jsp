@@ -20,23 +20,25 @@
 		<br><input type="submit" class="inside" value="Play">
 	</form>
 	</div>
-	<table>
+	<table align="center">
 		<tr>
-			<th>Opponent</th>
-			<th>Wins</th>
-			<th>Loses</th>
-			<th>Ties</th>
+			<th>OPPONENT</th>
+			<th>WINS</th>
+			<th>LOSES</th>
+			<th>TIES</th>
 		</tr>
 		<c:forEach items="${scores }" var="score">
 			<tr>
-				<td>${score.opponent }</td>
+				<td><c:if test="${score.opponent == 'rockPlayer'}">
+				<c:out value="Rock Player"/></c:if>
+				<c:if test="${score.opponent == 'randomPlayer'}">
+				<c:out value="Ramdom Player"/></c:if></td>
 				<td>${score.wins }</td>
 				<td>${score.loses }</td>
 				<td>${score.ties }</td>
 			</tr>
 		</c:forEach>
 	</table>
-	</p>
 	<div>
 	<form name="update" action="updateaccount" method="post">
 		<input type="hidden" name="update" value="updateUser">
@@ -47,6 +49,6 @@
 		<input type="submit" class="inside" value="Delete Account">
 	</form>
 	</div>
-	<p>${owner}</p>
+	<div>${owner}</div>
 </body>
 </html>

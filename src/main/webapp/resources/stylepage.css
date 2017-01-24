@@ -91,3 +91,31 @@ p.first {
 	font-size: 32px;
 	font-family: "Arial Black", Gadget, sans-serif
 }
+
+table {
+	border-collapse: collapse;
+    width: 75%;
+    color: white;
+    background-color: #006313;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+th, td {
+	padding: 20px;
+	border-bottom: 2px solid white;
+}
+
+th {
+	font-size: 40px;
+	height: 78px;
+}
+
+td {
+	font-size: 32px;
+}
+
+tr:hover{
+	background-color:#f5f5f5;
+	color: #224701;
+}

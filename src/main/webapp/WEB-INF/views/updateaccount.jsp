@@ -9,18 +9,17 @@
 </head>
 <body>
 	<h1>Update Account</h1>
-	<p>
+	<div>
 	<form name="updateAccount" onsubmit="return validation()" action="profile" method="post">
 	
-		<input type="hidden" name="accountID" value="${accountID}">
-		<br>First Name: <input type="text" name="firstName" value="${firstName}"> 
-		<br>Last Name: <input type="text" name="lastName" value="${lastName}"> 
-		<br>password: <input type="password" name="password" value="${password}"> 
+		<input type="hidden" name="accountID" class="inside" value="${accountID}">
+		<br>First Name: <input type="text" name="firstName" class="inside" value="${firstName}"> 
+		<br>Last Name: <input type="text" name="lastName" class="inside" value="${lastName}"> 
+		<br>password: <input type="password" name="password" class="inside" value="${password}"> 
 		<br><br>
-		<input type="submit" value="Submit">
-		
+		<input type="submit" class="inside" value="Update Account">	
 	</form>
-</p>
+</div>
 	
 <script>
 	function validation() {

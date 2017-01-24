@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="resources/stylepage.css">
 </head>
 <body>
-	<p>
+<h1>Make a Choice</h1>
+	<div>
 	<form name="humanChoice" action="match" method="post">
 
 		<br>Rock<input type="radio" name="humanPlayer" value="Rock">
@@ -16,8 +17,8 @@
 		<br>Scissors<input type="radio" name="humanPlayer"
 			value="Scissors"> <br>
 		<br>
-		<input type="submit" value="Your Choice">
+		<input type="submit" class="inside" value="Your Choice">
 	</form>
-	</p>
+	</div>
 </body>
 </html>

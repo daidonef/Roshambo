@@ -8,20 +8,19 @@
 <link rel="stylesheet" href="resources/stylepage.css">
 </head>
 <body>
-	<p>
-		Your Choice: ${humanRPS} <br>Opponent's Choice: ${opponentRPS} <br>Outcome:
-		${outcome}
+<h1>Match Results</h1>
+	<p class="first">
+		Your Choice: ${humanRPS} 
+		<br>Opponent's Choice: ${opponentRPS} 
+		<br>Outcome: ${outcome}
 	</p>
 	<p>
 	<form name="playAnotherOpp" action="profile" method="post">
-
-		<br>
-		<input type="submit" value="Play Another Opponent">
+	<br><input type="submit" class="inside" value="Play Another Opponent">
+	
 	</form>
 	<form name="playAgain" action="userchoice" method="post">
-
-		<br>
-		<input type="submit" value="Play Again">
+	<br><input type="submit" class="inside" value="Play Again">
 	</form>
 	</p>
 

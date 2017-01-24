@@ -9,17 +9,18 @@
 </head>
 <body>
 	<h1>Create Account</h1>
-	<p>${accountExist }
+	<div2>${accountExist }</div2>
+	<div>
 	<form name="updateAccount" onsubmit="return validation()" action="profile" method="post">
 
-		<br>Username: <input type="text" name="userName"> 
-		<br>First Name: <input type="text" name="firstName"> 
-		<br>Last Name: <input type="text" name="lastName"> 
-		<br>password: <input type="password" name="password"> 
+		<br>Username: <input type="text" class="inside" name="userName"> 
+		<br>First Name: <input type="text" class="inside" name="firstName"> 
+		<br>Last Name: <input type="text" class="inside" name="lastName"> 
+		<br>password: <input type="password" class="inside" name="password"> 
 		<br><br>
-		<input type="submit" value="Login">
+		<input type="submit" class="inside" value="Login">
 	</form>
-	</p>
+	</div>
 
 	<script>
 		function validation() {

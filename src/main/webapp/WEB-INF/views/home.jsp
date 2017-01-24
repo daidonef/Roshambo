@@ -11,11 +11,11 @@
 	<div>
 	<form name="login" action="login" method="post">
 
-		<input type="submit" value="Login">
+		<input type="submit" class="inside" value="Login">
 	</form>
 	<form name="createAccount" action="createaccount" method="post">
 
-		<input type="submit" class="submit" value="Create Account">
+		<input type="submit" class="inside" value="Create Account">
 	</form>
 	</div>
 </body>

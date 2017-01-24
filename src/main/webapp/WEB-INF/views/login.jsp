@@ -9,15 +9,15 @@
 </head>
 <body>
 	<h1>Login</h1>
-	<p>${wrongLogin }${deleteAcc }</p>
+	<div2>${wrongLogin }${deleteAcc }</div2>
 	<div>
-	<form name="login" class="submit" onsubmit="return validation()" action="profile"
+	<form name="login" onsubmit="return validation()" action="profile"
 		method="post">
 
-		<br>Username: <input type="text" name="userName"> <br>Password:
-		<input type="password" name="password"> <br>
+		<br>Username: <input type="text" class="inside" name="userName"> 
+		<br>Password: <input type="password" class="inside" name="password"> <br>
 		<br>
-		<input type="submit" class="submit" value="Login">
+		<input type="submit" class="inside" value="Login">
 	</form>
 	</div>
 

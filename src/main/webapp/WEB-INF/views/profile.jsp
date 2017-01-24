@@ -9,16 +9,17 @@
 <link rel="stylesheet" href="resources/stylepage.css">
 </head>
 <body>
-	<p>Hello ${fullName}${updateAccount}</p>
-	<p>
-		<br>Play against a Computer Player:
+	<h1>${fullName} Profile</h1>
+	<p class="first">Hello ${fullName}${updateAccount}</p>
+	<div>
+		<br><h2>Play against a Computer Player:</h2>
 	<form name="player" action="userchoice" method="post">
 
 		Rock Player<input type="radio" name="opponent" value="rockPlayer">
-		<br>Random Player<input type="radio" name="opponent"
-			value="randomPlayer"> <br> <br> <input
-			type="submit" value="Play">
+		<br>Random Player<input type="radio" name="opponent" value="randomPlayer"> 
+		<br><input type="submit" class="inside" value="Play">
 	</form>
+	</div>
 	<table>
 		<tr>
 			<th>Opponent</th>
@@ -36,15 +37,16 @@
 		</c:forEach>
 	</table>
 	</p>
-	<!-- Need to figure out way to update and delete account -->
+	<div>
 	<form name="update" action="updateaccount" method="post">
 		<input type="hidden" name="update" value="updateUser">
-		<input type="submit" value="Update Account">
+		<input type="submit" class="inside" value="Update Account">
 	</form>
 	<form name="delete" action="login" method="post">
 		<br><input type="hidden" name="delete" value="delete">
-		<input type="submit" value="Delete Account">
+		<input type="submit" class="inside" value="Delete Account">
 	</form>
+	</div>
 	<p>${owner}</p>
 </body>
 </html>

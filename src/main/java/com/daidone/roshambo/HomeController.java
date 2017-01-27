@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,23 +69,32 @@ public class HomeController {
 		if (session.getAttribute("account") == null) {
 
 			StringBuffer userName = new StringBuffer(request.getParameter("userName"));
+			StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 
 			if (request.getParameter("firstName") == null) { // From login page
 
-				StringBuffer password = new StringBuffer(request.getParameter("password"));
-
 				// Getting the account from the database.
 				List<Account> accounts = new ArrayList<Account>();
-				accounts = DAOAccount.getAccount(Query.gettingAccountUNaP(userName, password));
+				accounts = DAOAccount.getAccount(Query.gettingAccountUN(
+						userName));
 
 				if (accounts.size() == 0) {
 					model.addAttribute("wrongLogin", "Username or password is wrong.<br>"
 							+ "Please try again.");
 					return "login";
 				}
-
+				
 				account = accounts.get(0);
-				fullName.append(account.getFirstName() + " " + account.getLastName());
+				
+				//Check the encrypted password in the database to one user inputs.
+				if (passwordEncryptor.checkPassword(request.getParameter("password"), 
+						account.getPassword())) {
+					fullName.append(account.getFirstName() + " " + account.getLastName());
+				} else {
+					model.addAttribute("wrongLogin", "Username or password is wrong.<br>"
+							+ "Please try again.");
+					return "login";
+				}
 
 			} else { // From createaccount page
 
@@ -103,8 +113,10 @@ public class HomeController {
 				}
 
 				// Adding the account to the Database.
-				account = account.createAccount(request.getParameter("userName"), firstName.toString(),
-						lastName.toString(), request.getParameter("password"));
+				StringBuffer encryptedPassword = new StringBuffer(
+						passwordEncryptor.encryptPassword(request.getParameter("password")));
+				account = account.createAccount(request.getParameter("userName"), 
+						firstName.toString(), lastName.toString(), encryptedPassword.toString());
 				DAOAccount.addAccount(account);
 
 				// get account just created in order to get the ID
@@ -130,10 +142,12 @@ public class HomeController {
 		if (request.getParameter("accountID") != null) {
 			Account updateAccount = DAOAccount.getAccount(Query.gettingAccountID(
 					Integer.parseInt(request.getParameter("accountID")))).get(0);
+			StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 			
 			updateAccount.setFirstName((String)request.getParameter("firstName"));
 			updateAccount.setLastName((String)request.getParameter("lastName"));
-			updateAccount.setPassword((String)request.getParameter("password"));
+			updateAccount.setPassword((String)passwordEncryptor.encryptPassword(
+					request.getParameter("password")));
 			
 			DAOAccount.updateAccount(updateAccount);
 			model.addAttribute("updateAccount", "<br>Account has been updated");
@@ -306,7 +320,6 @@ public class HomeController {
 			model.addAttribute("accountID", account.getID());
 			model.addAttribute("firstName", account.getFirstName());
 			model.addAttribute("lastName", account.getLastName());
-			model.addAttribute("password", account.getPassword());
 
 		return "updateaccount";
 	}

@@ -15,7 +15,7 @@
 		<input type="hidden" name="accountID" class="inside" value="${accountID}">
 		<br>First Name: <input type="text" name="firstName" class="inside" value="${firstName}"> 
 		<br>Last Name: <input type="text" name="lastName" class="inside" value="${lastName}"> 
-		<br>password: <input type="password" name="password" class="inside" value="${password}"> 
+		<br>password: <input type="password" name="password" class="inside"> 
 		<br><br>
 		<input type="submit" class="inside" value="Update Account">	
 	</form>

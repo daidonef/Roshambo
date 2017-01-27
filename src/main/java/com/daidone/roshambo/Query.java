@@ -13,12 +13,6 @@ public class Query {
 		return query;
 	}
 	
-	public static String gettingAccountUNaP (StringBuffer un, StringBuffer p) {
-		String query = "FROM Account WHERE (username = '" + un + "') and (password = '"
-				+ p + "') ";
-		return query;
-	}
-	
 	public static String gettingAccountUN (StringBuffer un) {
 		String query = "FROM Account WHERE (username = '" + un + "')";
 		return query;

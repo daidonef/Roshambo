@@ -119,3 +119,33 @@ tr:hover{
 	background-color:#f5f5f5;
 	color: #224701;
 }
+
+divnav {
+	border-radius: 5px;
+    background-color: #c8edc4;
+    padding: 1px;
+    font-size: 32px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #224701;
+	text-align: center;
+}
+
+.navhome {
+	width: 49%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+}
+
+.navform {
+	width: 33%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+}

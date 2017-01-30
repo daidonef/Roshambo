@@ -67,6 +67,10 @@ public class HomeController {
 		StringBuffer fullName = new StringBuffer();
 
 		if (session.getAttribute("account") == null) {
+			
+			if (request.getParameter("userName") == null) {
+				return "home";
+			}
 
 			StringBuffer userName = new StringBuffer(request.getParameter("userName"));
 			StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();

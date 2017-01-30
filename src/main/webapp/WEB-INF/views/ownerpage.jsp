@@ -9,6 +9,17 @@
 <link rel="stylesheet" href="resources/stylepage.css">
 </head>
 <body>
+	<divnav>
+		<form name="home" class="navform" action="http://localhost:8080/roshambo/" method="get">
+			<input type="submit" class="inside" value="Home">
+		</form>
+		<form name="profile" class="navform" action="profile" method="post">
+			<input type="submit" class="inside" value="Profile">
+		</form>
+		<form name="login" class="navform" action="login" method="post">
+			<input type="submit" class="inside" value="Login">
+		</form>
+	</divnav>
 <h1>Owner Page</h1>
 	<div>
 	Search through the Accounts by name

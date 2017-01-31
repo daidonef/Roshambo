@@ -199,19 +199,29 @@ public class HomeController {
 
 			Rock rock = new Rock();
 			rock.generateRoshambo(rockRPS);
-			Roshambo rRPS = rock.getRoshambo();
 
-			session.setAttribute("opponentChoice", rRPS);
-
+			session.setAttribute("opponentChoice", rock.getRoshambo());
+			
+		} else if (opponent.equals("smartPlayer")) {
+			
+			StringBuffer smartRPS = new StringBuffer();
+			
+			if (session.getAttribute("humanRPS") != null) {
+				smartRPS.append(session.getAttribute("humanRPS"));
+			}
+			
+			SmartPlayer smartPlayer = new SmartPlayer();
+			smartPlayer.generateRoshambo(smartRPS);
+			session.setAttribute("opponentChoice", smartPlayer.getRoshambo());
+			
 		} else {
 
 			StringBuffer randomRPS = new StringBuffer("");
 
 			RandomPlayer randomPlayer = new RandomPlayer();
 			randomPlayer.generateRoshambo(randomRPS);
-			Roshambo rRPS = randomPlayer.getRoshambo();
 
-			session.setAttribute("opponentChoice", rRPS);
+			session.setAttribute("opponentChoice", randomPlayer.getRoshambo());
 
 		}
 
@@ -234,6 +244,7 @@ public class HomeController {
 		StringBuffer humanRPS = new StringBuffer(request.getParameter("humanPlayer"));
 		Human human = new Human();
 		human.generateRoshambo(humanRPS);
+		session.setAttribute("humanRPS", humanRPS);
 
 		Roshambo hRPS = human.getRoshambo();
 		Roshambo oRPS = (Roshambo) session.getAttribute("opponentChoice");

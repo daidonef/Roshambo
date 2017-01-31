@@ -28,6 +28,7 @@
 
 		Rock Player<input type="radio" name="opponent" value="rockPlayer">
 		<br>Random Player<input type="radio" name="opponent" value="randomPlayer"> 
+		<br>Smart Player<input type="radio" name="opponent" value="smartPlayer">
 		<br><input type="submit" class="inside" value="Play">
 	</form>
 	</div>

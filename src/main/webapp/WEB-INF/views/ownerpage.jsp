@@ -34,7 +34,6 @@
 			<th>Username</th>
 			<th>First Name</th>
 			<th>Last Name</th>
-			<th>Password</th>
 			<th>Update Account</th>
 			<th>Delete Account</th>
 		</tr>
@@ -43,7 +42,6 @@
 				<td>${account.userName }</td>
 				<td>${account.firstName }</td>
 				<td>${account.lastName }</td>
-				<td>${account.password }</td>
 				<td><form name="update" action="updateaccount" method="post">
 						<input type="hidden" name="updateOwner" value="${account.ID}"> 
 						<input type="submit" class="inside" value="Update Account">

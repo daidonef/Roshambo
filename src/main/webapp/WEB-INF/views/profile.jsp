@@ -20,7 +20,7 @@
 			<input type="submit" class="inside" value="Login">
 		</form>
 	</divnav>
-	<h1>${fullName} Profile</h1>
+	<h1>${userName} Profile</h1>
 	<p class="first">Hello ${fullName}${updateAccount}</p>
 	<div>
 		<br><h2>Play against a Computer Player:</h2>

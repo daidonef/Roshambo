@@ -29,13 +29,14 @@ public class HomeController {
 
 		HttpSession session = request.getSession(true);
 		
+		//For when user deletes their own account.
 		if (request.getParameter("delete") != null) {
 			
 			Account account = (Account) session.getAttribute("account");
-			int accountID = account.getID();
-			Account deleteAcc = DAOAccount.deleteAccount(accountID);
+			Account deleteAcc = DAOAccount.deleteAccount(account.getID());
 			
-			List<Scores> scores = DAOScores.getScores(Query.gettingScoresAccID(accountID));
+			//Deletes all the scores for all players the user faced.
+			List<Scores> scores = DAOScores.getScores(Query.gettingScoresAccID(account.getID()));
 			for (Scores score : scores) {
 				DAOScores.deleteScores(score.getScoresID());
 			}
@@ -65,7 +66,8 @@ public class HomeController {
 		HttpSession session = request.getSession(true);
 		Account account = new Account();
 		StringBuffer fullName = new StringBuffer();
-
+		
+		//If you come from login or create account
 		if (session.getAttribute("account") == null) {
 			
 			if (request.getParameter("userName") == null) {
@@ -74,14 +76,16 @@ public class HomeController {
 
 			StringBuffer userName = new StringBuffer(request.getParameter("userName"));
 			StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-
-			if (request.getParameter("firstName") == null) { // From login page
+			
+			//From login page
+			if (request.getParameter("firstName") == null) { 
 
 				// Getting the account from the database.
 				List<Account> accounts = new ArrayList<Account>();
 				accounts = DAOAccount.getAccount(Query.gettingAccountUN(
 						userName));
-
+				
+				//User input wrong username and/or password
 				if (accounts.size() == 0) {
 					model.addAttribute("wrongLogin", "Username or password is wrong.<br>"
 							+ "Please try again.");
@@ -100,7 +104,8 @@ public class HomeController {
 					return "login";
 				}
 
-			} else { // From createaccount page
+			// From createaccount page
+			} else { 
 
 				StringBuffer firstName = new StringBuffer(request.getParameter("firstName"));
 				StringBuffer lastName = new StringBuffer(request.getParameter("lastName"));
@@ -165,6 +170,7 @@ public class HomeController {
 		}
 
 		model.addAttribute("fullName", session.getAttribute("fullName"));
+		model.addAttribute("userName", account.getUserName());
 		
 		//For the Owner Account only
 		if (account.getUserName().equals("Admin")) {
@@ -206,6 +212,7 @@ public class HomeController {
 			
 			StringBuffer smartRPS = new StringBuffer();
 			
+			//Inputs the last choice of human player
 			if (session.getAttribute("humanRPS") != null) {
 				smartRPS.append(session.getAttribute("humanRPS"));
 			}
@@ -214,7 +221,7 @@ public class HomeController {
 			smartPlayer.generateRoshambo(smartRPS);
 			session.setAttribute("opponentChoice", smartPlayer.getRoshambo());
 			
-		} else {
+		} else { //Opponent is the random player
 
 			StringBuffer randomRPS = new StringBuffer("");
 
@@ -248,7 +255,8 @@ public class HomeController {
 
 		Roshambo hRPS = human.getRoshambo();
 		Roshambo oRPS = (Roshambo) session.getAttribute("opponentChoice");
-
+		
+		//Gives the outcome of the Roshambo game
 		StringBuffer outcome = new StringBuffer(GameMatch.gameOutcome(hRPS, oRPS));
 
 		Account account = (Account) session.getAttribute("account");
@@ -265,7 +273,7 @@ public class HomeController {
 			newScores = Scores.newWinLoseTie(newScores, outcome);
 			DAOScores.addScores(newScores);
 
-		} else { // If it already is in database
+		} else { // If opponent is already in database
 
 			Scores score = scores.get(0);
 			score = Scores.addingWinLoseTie(score, outcome);
@@ -285,7 +293,8 @@ public class HomeController {
 		
 		HttpSession session = request.getSession(true);
 		Account owner = (Account) session.getAttribute("account");
-
+		
+		//Only the Admin or Owner can get to this page
 		if (owner.getUserName().equals("Admin") == false) {
 			return "login";
 		}
@@ -320,8 +329,6 @@ public class HomeController {
 			return "login";
 		}
 			
-			// Add update to DAOAccount using value for
-			// request.getParameter("update")
 			Account account = new Account();
 			
 			if (request.getParameter("updateOwner") != null) {

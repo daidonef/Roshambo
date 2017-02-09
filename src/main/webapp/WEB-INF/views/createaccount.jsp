@@ -22,7 +22,7 @@
 	<h1>Create Account</h1>
 	<div2>${accountExist }</div2>
 	<div>
-	<form name="updateAccount" onsubmit="return validation()" action="profile" method="post">
+	<form name="createAccount" onsubmit="return validation()" action="profile" method="post">
 
 		<br>Username: <input type="text" class="inside" name="userName"> 
 		<br>First Name: <input type="text" class="inside" name="firstName"> 

@@ -31,35 +31,5 @@
 		<input type="submit" class="inside" value="Login">
 	</form>
 	</div>
-
-	<script>
-		function validation() {
-			var firstName = document.forms["login"]["firstName"].value;
-			var lastName = document.forms["login"]["lastName"].value;
-
-			var letters = /^[A-Za-z\s]+$/;
-
-			if (firstName.length < 2) {
-				alert("First name is too short!");
-				return false;
-			}
-
-			if (letters.test(firstName) == false) {
-				alert("First name can only have letters!");
-				return false;
-			}
-
-			if (lastName.length < 2) {
-				alert("Last name is too short!");
-				return false;
-			}
-
-			if (letters.test(lastName) == false) {
-				alert("Last name can only have letters!");
-				return false;
-			}
-		}
-	</script>
-
 </body>
 </html>

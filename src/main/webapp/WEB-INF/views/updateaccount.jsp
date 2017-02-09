@@ -35,17 +35,11 @@
 <script>
 	function validation() {
 
-		var userName = document.forms["createAccount"]["userName"].value;
-		var firstName = document.forms["createAccount"]["firstName"].value;
-		var lastName = document.forms["createAccount"]["lastName"].value;
-		var password = document.forms["createAccount"]["password"].value;
+		var firstName = document.forms["updateAccount"]["firstName"].value;
+		var lastName = document.forms["updateAccount"]["lastName"].value;
+		var password = document.forms["updateAccount"]["password"].value;
 
 		var letters = /^[A-Za-z\s]+$/;
-
-		if (userName.length < 8) {
-			alert("Username is too short! Need at least 8 characters!");
-			return false;
-		}
 
 		if (firstName.length < 2) {
 			alert("First name is too short!");

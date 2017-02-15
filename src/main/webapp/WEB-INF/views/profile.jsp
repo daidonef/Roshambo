@@ -44,7 +44,9 @@
 				<td><c:if test="${score.opponent == 'rockPlayer'}">
 				<c:out value="Rock Player"/></c:if>
 				<c:if test="${score.opponent == 'randomPlayer'}">
-				<c:out value="Ramdom Player"/></c:if></td>
+				<c:out value="Ramdom Player"/></c:if>
+				<c:if test="${score.opponent == 'smartPlayer'}">
+				<c:out value="Smart Player"/></c:if></td>
 				<td>${score.wins }</td>
 				<td>${score.loses }</td>
 				<td>${score.ties }</td>

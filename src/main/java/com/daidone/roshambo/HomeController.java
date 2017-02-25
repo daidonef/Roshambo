@@ -54,8 +54,7 @@ public class HomeController {
 	@RequestMapping(value = "/createaccount", method = RequestMethod.POST)
 	public String signIn(Model model, HttpServletRequest request) {
 
-		HttpSession session = request.getSession(true);
-		session.invalidate();
+		request.getSession(true).invalidate();
 
 		return "createaccount";
 	}
